@@ -38,6 +38,11 @@ export ANDROID_HOME=/opt/android-sdk
 
 各版本修复内容与变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
+## 反馈问题
+
+使用中遇到问题、或有功能建议，请直接提交 Issue：
+https://github.com/tianqi415/skyqi/issues
+
 ## 开发
 
 天奇
