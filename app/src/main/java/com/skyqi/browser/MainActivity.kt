@@ -542,7 +542,7 @@ class MainActivity : AppCompatActivity() {
                     1 -> clearCache()
                     2 -> AlertDialog.Builder(this)
                         .setTitle("Skyqi")
-                        .setMessage("版本 ${appVersionName()}\n基于谷歌 Chromium 内核\n\n开发：天奇\n\n本项目为开源项目，遵循 MIT 协议\nhttps://github.com/tianqi415/skyqi")
+                        .setMessage("版本 ${appVersionName()}\n基于谷歌 Chromium 内核\n\n开发：天奇\n\n本项目为开源项目，遵循 AGPL-3.0 协议\nhttps://github.com/tianqi415/skyqi")
                         .setPositiveButton("确定", null)
                         .show()
                 }
