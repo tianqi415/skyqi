@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.QiyunBrowser" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/qiyun_blue</item>
+        <item name="colorPrimaryDark">@color/qiyun_blue_dark</item>
+        <item name="colorAccent">@color/qiyun_blue</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/bg_page</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="ToolbarButton" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="android:tint">@color/text_primary</item>
+    </style>
+</resources>

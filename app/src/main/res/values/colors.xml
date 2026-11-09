@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 品牌色：Skyqi 天空蓝渐变 -->
+    <color name="qiyun_blue">#1E88E5</color>
+    <color name="qiyun_blue_dark">#1565C0</color>
+    <color name="qiyun_blue_light">#E3F2FD</color>
+    <color name="qiyun_gradient_start">#2196F3</color>
+    <color name="qiyun_gradient_end">#00BCD4</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="text_primary">#1A1A1A</color>
+    <color name="text_secondary">#777777</color>
+    <color name="text_tertiary">#AAAAAA</color>
+    <color name="divider">#F0F0F0</color>
+    <color name="bg_page">#F7F9FC</color>
+    <color name="bg_toolbar">#FFFFFF</color>
+    <color name="bg_address">#F2F4F8</color>
+
+    <!-- 夜间模式 -->
+    <color name="night_bg">#121212</color>
+    <color name="night_surface">#1E1E1E</color>
+    <color name="night_text">#E0E0E0</color>
+    <color name="night_divider">#333333</color>
+
+    <!-- 标签页选中态 -->
+    <color name="tab_selected_bg">#E3F2FD</color>
+    <color name="tab_selected_text">#1565C0</color>
+</resources>

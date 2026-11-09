@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Skyqi 导航</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; }
+    body {
+        font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+        background: linear-gradient(160deg, #E8F4FD 0%, #F5FAFF 40%, #EAF6FF 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+        overflow-y: auto;
+    }
+
+    /* ===== 顶部 Logo ===== */
+    .header {
+        margin-top: 11vh;
+        text-align: center;
+        animation: fadeInDown .5s ease;
+    }
+    .logo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 2px;
+        font-size: 48px;
+        font-weight: 800;
+        color: #0B65C2;
+        background: linear-gradient(135deg, #2196F3, #00BCD4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 12px rgba(33, 150, 243, .15);
+        user-select: none;
+    }
+    .logo-icon {
+        display: inline-block;
+        width: 48px; height: 48px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #2196F3, #00BCD4);
+        position: relative;
+        box-shadow: 0 6px 16px rgba(33, 150, 243, .35);
+    }
+    .logo-icon::before {
+        content: '';
+        position: absolute; top: 22px; left: 11px;
+        width: 19px; height: 8px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 6px -5px 0 0 #fff, 11px 0 0 0 #fff;
+    }
+    .logo-icon::after {
+        content: '';
+        position: absolute; top: 16px; left: 18px;
+        width: 10px; height: 10px;
+        background: #fff;
+        border-radius: 50%;
+    }
+    .tagline {
+        margin-top: 10px;
+        color: #7BA7CC;
+        font-size: 13px;
+        letter-spacing: 4px;
+    }
+
+    /* ===== 搜索框（Via 风格：左侧引擎切换 + 输入 + 搜索按钮） ===== */
+    .search-wrap {
+        width: 100%;
+        max-width: 430px;
+        margin-top: 30px;
+        animation: fadeInUp .5s .1s ease both;
+    }
+    .search-box {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border-radius: 28px;
+        height: 52px;
+        padding: 0 6px 0 4px;
+        box-shadow: 0 8px 24px rgba(33, 150, 243, .12), 0 2px 6px rgba(0,0,0,.04);
+        border: 1.5px solid transparent;
+        transition: all .2s;
+    }
+    .search-box:focus-within {
+        border-color: #2196F3;
+        box-shadow: 0 10px 28px rgba(33, 150, 243, .22);
+    }
+    /* 搜索引擎切换按钮 */
+    .engine-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 52px;
+        height: 42px;
+        margin-left: 2px;
+        padding: 0 10px;
+        border-radius: 21px;
+        background: #F0F6FF;
+        border: none;
+        font-size: 14px;
+        font-weight: 700;
+        color: #1565C0;
+        cursor: pointer;
+        flex-shrink: 0;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    .engine-btn:active { background: #E0EDFF; }
+    .engine-btn .eng-badge {
+        width: 24px; height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        margin-right: 4px;
+        flex-shrink: 0;
+    }
+    .search-box svg { width: 20px; height: 20px; fill: #9EC3E3; flex-shrink: 0; margin-left: 8px; }
+    .search-box input {
+        flex: 1;
+        border: none;
+        outline: none;
+        background: transparent;
+        height: 100%;
+        font-size: 16px;
+        color: #2B2B2B;
+        padding: 0 10px;
+        min-width: 0;
+    }
+    .search-box input::placeholder { color: #B9C9D8; }
+    .search-go {
+        width: 38px; height: 38px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #2196F3, #00BCD4);
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(33, 150, 243, .3);
+    }
+    .search-go:active { transform: scale(.92); }
+
+    /* ===== 快捷网站 ===== */
+    .grid {
+        width: 100%;
+        max-width: 360px;
+        margin-top: 34px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px 12px;
+        animation: fadeInUp .5s .2s ease both;
+    }
+    .site {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        padding: 6px 2px;
+        border-radius: 16px;
+        transition: transform .15s;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    .site:active { transform: scale(.9); }
+    .site-icon {
+        width: 54px; height: 54px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        font-weight: 700;
+        color: #fff;
+        box-shadow: 0 5px 14px rgba(0,0,0,.12);
+        margin-bottom: 8px;
+    }
+    .site-name {
+        font-size: 12px;
+        color: #5A6B7A;
+        text-align: center;
+    }
+
+    /* 各站点配色 */
+    .c-baidu  { background: linear-gradient(135deg,#4E8EF7,#2B6DE8); }
+    .c-bili   { background: linear-gradient(135deg,#FB7299,#E7588A); }
+    .c-zhihu  { background: linear-gradient(135deg,#0F88EB,#1266C5); }
+    .c-weibo  { background: linear-gradient(135deg,#FF8200,#F55A00); }
+    .c-taobao { background: linear-gradient(135deg,#FF6A00,#FF3D00); }
+    .c-jd     { background: linear-gradient(135deg,#E1251B,#C8100C); }
+    .c-douyin { background: linear-gradient(135deg,#2B2B2B,#0A0A0A); }
+    .c-qq     { background: linear-gradient(135deg,#12B7F5,#0A83D8); }
+
+    /* ===== 底部 ===== */
+    .footer {
+        margin-top: auto;
+        padding: 24px 0 18px;
+        color: #AFC4D6;
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
+
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo">
+            <span class="logo-icon"></span>
+            <span>Skyqi</span>
+        </div>
+        <div class="tagline">轻 松 浏 览 · 自 由 上 网</div>
+    </div>
+
+    <div class="search-wrap">
+        <div class="search-box" id="searchBox">
+            <!-- 搜索引擎切换按钮 -->
+            <button class="engine-btn" id="engineBtn" type="button">
+                <span class="eng-badge" id="engBadge" style="background:#4E8EF7;">度</span>
+                <span id="engName">百度</span>
+            </button>
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input type="text" id="searchInput" placeholder="搜索或输入网址" autocomplete="off" autocapitalize="off" autocorrect="off">
+            <button class="search-go" id="searchGo" type="button">➤</button>
+        </div>
+    </div>
+
+    <div class="grid">
+        <a class="site" href="https://www.baidu.com">
+            <span class="site-icon c-baidu">度</span>
+            <span class="site-name">百度</span>
+        </a>
+        <a class="site" href="https://www.bilibili.com">
+            <span class="site-icon c-bili">B</span>
+            <span class="site-name">哔哩哔哩</span>
+        </a>
+        <a class="site" href="https://www.zhihu.com">
+            <span class="site-icon c-zhihu">知</span>
+            <span class="site-name">知乎</span>
+        </a>
+        <a class="site" href="https://weibo.com">
+            <span class="site-icon c-weibo">微</span>
+            <span class="site-name">微博</span>
+        </a>
+        <a class="site" href="https://www.taobao.com">
+            <span class="site-icon c-taobao">淘</span>
+            <span class="site-name">淘宝</span>
+        </a>
+        <a class="site" href="https://www.jd.com">
+            <span class="site-icon c-jd">京</span>
+            <span class="site-name">京东</span>
+        </a>
+        <a class="site" href="https://www.douyin.com">
+            <span class="site-icon c-douyin">抖</span>
+            <span class="site-name">抖音</span>
+        </a>
+        <a class="site" href="https://mail.qq.com">
+            <span class="site-icon c-qq">Q</span>
+            <span class="site-name">QQ邮箱</span>
+        </a>
+    </div>
+
+    <div class="footer">Skyqi Browser · 让浏览更简单</div>
+
+<script>
+    // 搜索引擎列表
+    var engines = [
+        { name: '百度', badge: '度', color: '#4E8EF7', url: 'https://www.baidu.com/s?wd=' },
+        { name: '必应', badge: 'B', color: '#0A66C2', url: 'https://www.bing.com/search?q=' },
+        { name: '谷歌', badge: 'G', color: '#4285F4', url: 'https://www.google.com/search?q=' },
+        { name: '搜狗', badge: '狗', color: '#FF7700', url: 'https://www.sogou.com/web?query=' }
+    ];
+    var engineIndex = 0;
+
+    function setEngine(i) {
+        engineIndex = ((i % engines.length) + engines.length) % engines.length;
+        var e = engines[engineIndex];
+        document.getElementById('engBadge').textContent = e.badge;
+        document.getElementById('engBadge').style.background = e.color;
+        document.getElementById('engName').textContent = e.name;
+        document.getElementById('searchInput').placeholder = '用' + e.name + '搜索或输入网址';
+        // 写回原生固定存储：退出浏览器 / 回主页都保留，直到用户再改
+        try { window.SkyqiEngine.setSearchEngine(engineIndex); } catch (err) {}
+    }
+
+    // 页面加载时从原生固定存储恢复用户上次选择的引擎
+    (function restoreEngine() {
+        try {
+            var i = parseInt(window.SkyqiEngine.getSearchEngine(), 10);
+            if (!isNaN(i)) { setEngine(i); return; }
+        } catch (err) {}
+        setEngine(0);
+    })();
+
+    // 点击引擎按钮 → 切换
+    document.getElementById('engineBtn').addEventListener('click', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        setEngine(engineIndex + 1);
+        document.getElementById('searchInput').focus();
+    });
+
+    // 执行搜索：网址直开，文字走当前引擎
+    function doSearch() {
+        var input = document.getElementById('searchInput');
+        var q = input.value.trim();
+        if (!q) { input.focus(); return; }
+        if (/^https?:\/\//i.test(q)) {
+            window.location.href = q;
+            return;
+        }
+        if (/^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+/.test(q)) {
+            window.location.href = 'https://' + q;
+            return;
+        }
+        window.location.href = engines[engineIndex].url + encodeURIComponent(q);
+    }
+
+    // 搜索按钮 → 搜索
+    document.getElementById('searchGo').addEventListener('click', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        doSearch();
+        return false;
+    });
+
+    // 输入框回车 → 搜索
+    document.getElementById('searchInput').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            e.preventDefault();
+            doSearch();
+        }
+    });
+
+    // 点击搜索框容器任意处（非按钮）→ 聚焦输入框
+    document.getElementById('searchBox').addEventListener('click', function (ev) {
+        if (ev.target && (ev.target.id === 'engineBtn' || ev.target.id === 'searchGo')) return;
+        document.getElementById('searchInput').focus();
+    });
+</script>
+</body>
+</html>
